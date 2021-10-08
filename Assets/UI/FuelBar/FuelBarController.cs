@@ -1,13 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FuelBarController : MonoBehaviour
 {
-    private const int SECONDS = 2;
-    private Image fuelBarImg;
+    public static event Action OnFuelHasRunOutEvent;
 
+    private const int SECONDS = 5;
+    private Image fuelBarImg;
+    
     private void OnEnable()
     {
         FuelCanController.OnFuelCollectedEvent -= OnFuelCollected;
@@ -22,7 +24,7 @@ public class FuelBarController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         fuelBarImg = GetComponent<Image>();
         StartCoroutine(ReduceFuel(SECONDS));
@@ -33,14 +35,23 @@ public class FuelBarController : MonoBehaviour
         while(fuelBarImg.fillAmount > 0)
         {
             yield return new WaitForSeconds(seconds);
-            fuelBarImg.fillAmount -= 0.1f;
+            UpdateFillAmountOfBar(-0.1f);
+            
         }
-        Debug.Log("	the gas has run out");
     }
 
     private void OnFuelCollected(int fuelAmount)
     {
         float fillAmountIncrease = (float)fuelAmount / 100;
-        fuelBarImg.fillAmount += fillAmountIncrease;
+        UpdateFillAmountOfBar(fillAmountIncrease);
+    }
+
+    private void UpdateFillAmountOfBar(float amount)
+    {
+        fuelBarImg.fillAmount += amount;
+        if (fuelBarImg.fillAmount <= 0)
+        {
+            OnFuelHasRunOutEvent?.Invoke();
+        }
     }
 }
