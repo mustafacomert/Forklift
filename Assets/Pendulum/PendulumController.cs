@@ -11,13 +11,18 @@ public class PendulumController : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.AddForce((rotationSpeed) * (Vector3.forward + Vector3.up), ForceMode.Impulse);
+        //rb = GetComponent<Rigidbody>();
+        //rb.AddForce((rotationSpeed) * (Vector3.forward + Vector3.up), ForceMode.Impulse);
+        //Vector3 newPosition = new Vector3(0, 10, 0);
+        //transform.position = newPosition;
     }
 
 
     private void FixedUpdate()
     {
+        float angle = Mathf.Sin(Time.time) * 80; //tweak this to change frequency
+
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.right);
         //Move();
     }
 
