@@ -11,7 +11,6 @@ public class FuelCanController : MonoBehaviour
     //so, no need to check the tag or whatsoever
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger with " + other.name);
         OnFuelCollectedEvent?.Invoke(fuelAmount);
         Destroy(gameObject);
     }
