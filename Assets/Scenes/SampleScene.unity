@@ -3767,7 +3767,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000011650593510, guid: 6705bd914fa08eb4992f4e2e178dcf28, type: 3}
       propertyPath: IS_MOBILE
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7521015413379153906, guid: 6705bd914fa08eb4992f4e2e178dcf28,
         type: 3}
