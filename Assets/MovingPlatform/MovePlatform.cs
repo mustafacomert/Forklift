@@ -14,7 +14,11 @@ public class MovePlatform : MonoBehaviour
     private Rigidbody rBody;
 
     private HashSet<GameObject> pickedUpObjs;
-    
+
+    private bool taskFinished;
+    private Vector3 prevPos;
+    private Vector3 lastPos;
+
     private enum Direction
     {
         Forward,
@@ -64,9 +68,6 @@ public class MovePlatform : MonoBehaviour
         }
     }
 
-    private bool taskFinished;
-    Vector3 prevPos;
-    Vector3 lastPos;
     IEnumerator Vector3LerpCoroutine(Vector3 target, float speed)
     {
         Vector3 startPosition = transform.position;
