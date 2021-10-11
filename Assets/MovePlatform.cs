@@ -9,8 +9,11 @@ public class MovePlatform : MonoBehaviour
     private Vector3 endPosition;
     private Rigidbody rBody;
 
+    private HashSet<GameObject> pickedUpObjs;
+
     void Start()
     {
+        pickedUpObjs = new HashSet<GameObject>();
         rBody = GetComponent<Rigidbody>();
         startPosition = transform.position;
         endPosition = transform.position + Vector3.forward * 10;
@@ -21,35 +24,29 @@ public class MovePlatform : MonoBehaviour
     private void LateUpdate()
     {
         lastPos = transform.position;
-
-        if (catched)
+        foreach(GameObject obj in pickedUpObjs)
         {
-            //rb2.isKinematic = true;
-            Debug.Log("wadsad");
-            t.position += (lastPos - prevPos);
+            obj.transform.position += (lastPos - prevPos);
         }
         prevPos = transform.position;
     }
 
     void Update()
     {
-        if (finished && rBody.position.z >= endPosition.z)
+        if (notOnTarget && rBody.position.z >= endPosition.z)
         {
-            finished = false;
+            notOnTarget = false;
             StartCoroutine(Vector3LerpCoroutine(gameObject, startPosition, speed));
         }
-        if (finished && rBody.position.z <= startPosition.z)
+        if (notOnTarget && rBody.position.z <= startPosition.z)
         {
-            finished = false;
+            notOnTarget = false;
             StartCoroutine(Vector3LerpCoroutine(gameObject, endPosition, speed));
         }
     }
-    private bool finished;
-    private bool catched;
-    private Transform t;
+    private bool notOnTarget;
     Vector3 prevPos;
     Vector3 lastPos;
-    Rigidbody rb2;
     IEnumerator Vector3LerpCoroutine(GameObject obj, Vector3 target, float speed)
     {
         Vector3 startPosition = obj.transform.position;
@@ -64,24 +61,23 @@ public class MovePlatform : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2);
-        finished = true;
+        notOnTarget = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Forklift"))
         {
-            catched = true;
-            t = collision.collider.attachedRigidbody.transform;
-            rb2 = collision.collider.attachedRigidbody;
-            Debug.Log("rb : " + rb2.name);
+            pickedUpObjs.Add(collision.collider.attachedRigidbody.gameObject);
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
+        
         if (collision.gameObject.CompareTag("Forklift"))
         {
+            pickedUpObjs.Remove(collision.collider.attachedRigidbody.gameObject);
         }
     }
 
