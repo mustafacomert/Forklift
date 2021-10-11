@@ -2,6 +2,7 @@
 
 public class ForkliftTruckController : MonoBehaviour
 {
+    public static ForkliftTruckController Instance { get; private set; }
     [SerializeField] private bool IS_MOBILE = true;
     private const string HORIZONTAL = "Horizontal"; 
     private const string VERTICAL = "Vertical";
@@ -32,6 +33,7 @@ public class ForkliftTruckController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         rb = GetComponent<Rigidbody>();
     }
     private void Start()

@@ -1534,7 +1534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8780a0df5ed904948a0f32e9d52cccff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorT: {fileID: 4000014001965001}
 --- !u!1001 &1026811646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3603,12 +3602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6067f287c4dd1664caf1e1395224bdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4000014001965001 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7521015413379153906, guid: 6705bd914fa08eb4992f4e2e178dcf28,
-    type: 3}
-  m_PrefabInstance: {fileID: 7525011772342581307}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450652586989254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2276378162648345896, guid: ec6a928020b7dcb489c9e7a0b5f4d4b3,
@@ -3767,7 +3760,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000011650593510, guid: 6705bd914fa08eb4992f4e2e178dcf28, type: 3}
       propertyPath: IS_MOBILE
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7521015413379153906, guid: 6705bd914fa08eb4992f4e2e178dcf28,
         type: 3}
