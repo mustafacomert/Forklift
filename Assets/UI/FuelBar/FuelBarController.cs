@@ -7,7 +7,7 @@ public class FuelBarController : MonoBehaviour
 {
     public static event Action OnFuelHasRunOutEvent;
 
-    private const int SECONDS = 5;
+    private const int SECONDS = 10;
     private Image fuelBarImg;
     
     private void OnEnable()

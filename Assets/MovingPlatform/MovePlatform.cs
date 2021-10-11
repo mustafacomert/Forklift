@@ -4,19 +4,37 @@ using UnityEngine;
 
 public class MovePlatform : MonoBehaviour
 {
-    public int speed;
     private Vector3 startPosition;
     private Vector3 endPosition;
     private Rigidbody rBody;
 
     private HashSet<GameObject> pickedUpObjs;
+    
+    private enum Direction
+    {
+        Forward,
+        Back
+    }
 
+    [SerializeField] private float moveAmount = 10;
+    [SerializeField] private int speed = 10;
+    [SerializeField] private Direction dir;
+
+    private const float waitSeconds = 2.5f;
     void Start()
     {
         pickedUpObjs = new HashSet<GameObject>();
         rBody = GetComponent<Rigidbody>();
         startPosition = transform.position;
-        endPosition = transform.position + Vector3.forward * 10;
+        switch(dir){
+            case Direction.Forward:
+                endPosition = transform.position + Vector3.forward * moveAmount;
+                break;
+            case Direction.Back:
+                endPosition = transform.position - Vector3.forward * moveAmount;
+                break;
+        }
+        
         StartCoroutine(Vector3LerpCoroutine(gameObject, endPosition, speed));
     }
 
@@ -60,25 +78,41 @@ public class MovePlatform : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(waitSeconds);
         notOnTarget = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Forklift"))
+    //    {
+    //        pickedUpObjs.Add(collision.collider.attachedRigidbody.gameObject);
+    //    }
+    //}
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+
+    //    if (collision.gameObject.CompareTag("Forklift"))
+    //    {
+    //        pickedUpObjs.Remove(collision.collider.attachedRigidbody.gameObject);
+    //    }
+    //}
+    private void OnTriggerEnter(Collider col)
     {
-        if (collision.gameObject.CompareTag("Forklift"))
+        GameObject obj = col.attachedRigidbody.gameObject;
+        if (obj.CompareTag("Forklift"))
         {
-            pickedUpObjs.Add(collision.collider.attachedRigidbody.gameObject);
+            pickedUpObjs.Add(obj);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider col)
     {
-        
-        if (collision.gameObject.CompareTag("Forklift"))
+        GameObject obj = col.attachedRigidbody.gameObject;
+        if (obj.CompareTag("Forklift"))
         {
-            pickedUpObjs.Remove(collision.collider.attachedRigidbody.gameObject);
+            pickedUpObjs.Remove(obj);
         }
     }
-
 }

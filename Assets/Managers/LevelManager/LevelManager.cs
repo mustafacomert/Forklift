@@ -11,30 +11,39 @@ public class LevelManager : MonoBehaviour
 
         BoxController.OnBoxDroppedEvent -= OnBoxDropped;
         BoxController.OnBoxDroppedEvent += OnBoxDropped;
+
+        PendulumHead.OnHitForkliftEvent -= OnHitForklift;
+        PendulumHead.OnHitForkliftEvent += OnHitForklift;
     }
 
     private void OnDisable()
     {
         FuelBarController.OnFuelHasRunOutEvent -= OnFuelHasRunOut;
         BoxController.OnBoxDroppedEvent -= OnBoxDropped;
+        PendulumHead.OnHitForkliftEvent -= OnHitForklift;
     }
+
 
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    //gas has run out
     private void OnFuelHasRunOut()
     {
-        Debug.Log("gas is over");
         RestartLevel();
     }
 
-
+    //box dropped
     private void OnBoxDropped()
     {
-        Debug.Log("box is dropped");
         RestartLevel();
     }
 
+    //forklift hit by pendulum
+    private void OnHitForklift()
+    {
+        RestartLevel();
+    }
 }
