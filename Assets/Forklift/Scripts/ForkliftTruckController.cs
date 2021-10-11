@@ -24,7 +24,7 @@ public class ForkliftTruckController : MonoBehaviour
     private bool isGasing;
 
     private float motorForce = 600;
-    private float brakeForce = 3000;
+    private float brakeForce = 1500;
 
     private Rigidbody rb;
 
@@ -44,7 +44,7 @@ public class ForkliftTruckController : MonoBehaviour
         GetInput();
     }
 
-
+    
     private void FixedUpdate()
     {
         if(isBraking)

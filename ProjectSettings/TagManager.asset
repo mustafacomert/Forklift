@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Vehicle
   - Ground
+  - Forklift
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
