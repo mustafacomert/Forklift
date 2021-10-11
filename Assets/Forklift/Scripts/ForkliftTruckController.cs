@@ -2,7 +2,7 @@
 
 public class ForkliftTruckController : MonoBehaviour
 {
-    private const bool IS_MOBILE = false;
+    [SerializeField] private bool IS_MOBILE = true;
     private const string HORIZONTAL = "Horizontal"; 
     private const string VERTICAL = "Vertical";
     private const int MAX_WHEEL_ANGLE = 30;
@@ -24,7 +24,7 @@ public class ForkliftTruckController : MonoBehaviour
     private bool isGasing;
 
     private float motorForce = 600;
-    private float brakeForce = 1500;
+    private float brakeForce = 1200;
 
     private Rigidbody rb;
 
@@ -43,14 +43,16 @@ public class ForkliftTruckController : MonoBehaviour
     {
         GetInput();
     }
-
-    
+    private Vector3 prevPos;
+    private Vector3 currPos;
+   
     private void FixedUpdate()
     {
         if(isBraking)
         {
             SetBrakeForce(0);
             SetMotorTorque(-motorForce);
+          
         }
         else if(isGasing)
         {

@@ -51,11 +51,11 @@ MeshRenderer:
   m_GameObject: {fileID: 1503218540489750418}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_MotionVectors: 2
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
@@ -106,4 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09a8d78e09886c4096f115a5404ff6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
+  fuelAmount: 50
